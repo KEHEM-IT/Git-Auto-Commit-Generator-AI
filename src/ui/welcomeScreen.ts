@@ -3,6 +3,14 @@ import * as vscode from 'vscode';
 export class WelcomeScreen {
     static async show(context: vscode.ExtensionContext, forceShow: boolean = false): Promise<void> {
         const hasShownWelcome = context.globalState.get('hasShownWelcome', false);
+        
+        // Open dashboard on first install
+        if (!hasShownWelcome && !forceShow) {
+            setTimeout(() => {
+                vscode.commands.executeCommand('gitAutoCommit.showDashboard');
+            }, 1000);
+        }
+        
         if (hasShownWelcome && !forceShow) return;
 
         const panel = vscode.window.createWebviewPanel(
