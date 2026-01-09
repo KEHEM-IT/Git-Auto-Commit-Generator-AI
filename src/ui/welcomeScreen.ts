@@ -65,35 +65,26 @@ export class WelcomeScreen {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Git Auto Commit</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            overflow-x: hidden;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        /* VS Code Dark Theme Support */
-        body.vscode-dark {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-        }
-        
-        body.vscode-light {
-            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+        /* VS Code Dark Theme Colors */
+        :root {
+            --vscode-bg: #1e1e1e;
+            --vscode-fg: #cccccc;
+            --vscode-editor-bg: #252526;
+            --vscode-sidebar-bg: #252526;
+            --vscode-input-bg: #3c3c3c;
+            --vscode-border: #3c3c3c;
+            --vscode-button-bg: #0e639c;
+            --vscode-button-hover-bg: #1177bb;
+            --vscode-accent: #007acc;
+            --vscode-list-hover: #2a2d2e;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            animation: fadeInUp 0.6s ease-out;
+        body {
+            font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
+            background-color: var(--vscode-bg);
+            color: var(--vscode-fg);
         }
 
         @keyframes fadeInUp {
@@ -105,25 +96,6 @@ export class WelcomeScreen {
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-            padding: 60px 20px 40px;
-            position: relative;
-        }
-
-        .logo-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            font-size: 90px;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
 
         @keyframes float {
@@ -138,22 +110,10 @@ export class WelcomeScreen {
             }
         }
 
-        .logo-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
         @keyframes pulse {
             0%, 100% { 
                 transform: translate(-50%, -50%) scale(1);
-                opacity: 0.5;
+                opacity: 0.3;
             }
             50% { 
                 transform: translate(-50%, -50%) scale(1.3);
@@ -161,76 +121,10 @@ export class WelcomeScreen {
             }
         }
 
-        h1 {
-            font-size: 52px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #fff, #f0f0f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 22px;
-            opacity: 0.95;
-            font-weight: 300;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .subtitle i {
-            margin: 0 8px;
-            color: #ffd700;
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
         @keyframes sparkle {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(1.2); }
         }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 50px 0;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 35px;
-            border: 2px solid rgba(255, 255, 255, 0.25);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: fadeIn 0.6s ease-out backwards;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        .feature-card:nth-child(4) { animation-delay: 0.4s; }
-        .feature-card:nth-child(5) { animation-delay: 0.5s; }
-        .feature-card:nth-child(6) { animation-delay: 0.6s; }
 
         @keyframes fadeIn {
             from {
@@ -243,321 +137,15 @@ export class WelcomeScreen {
             }
         }
 
-        .feature-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            background: rgba(255, 255, 255, 0.18);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-
-        .feature-icon.fa-bolt { color: #ffd700; }
-        .feature-icon.fa-brain { color: #ff6ec7; }
-        .feature-icon.fa-chart-line { color: #00d4ff; }
-        .feature-icon.fa-bell { color: #ff9800; }
-        .feature-icon.fa-sliders { color: #4caf50; }
-        .feature-icon.fa-gauge-high { color: #e91e63; }
-
-        .feature-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .feature-desc {
-            font-size: 15px;
-            opacity: 0.92;
-            line-height: 1.7;
-        }
-
-        .cta-section {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px 40px;
-            margin: 50px 0;
-            text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-
-        .cta-title {
-            font-size: 32px;
-            margin-bottom: 15px;
-            font-weight: 600;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .cta-subtitle {
-            opacity: 0.92;
-            margin-bottom: 35px;
-            font-size: 18px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 18px 45px;
-            border: none;
-            border-radius: 15px;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn i {
-            font-size: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.7);
-        }
-
-        .btn-primary:active {
-            transform: translateY(-1px) scale(1.02);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        .quick-start {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 40px;
-            margin: 50px 0;
-            border: 2px solid rgba(255, 255, 255, 0.25);
-        }
-
-        .quick-start h2 {
-            font-size: 28px;
-            margin-bottom: 35px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .quick-start h2 i {
-            margin-right: 15px;
-            color: #ffd700;
-        }
-
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .step:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateX(10px);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .step-number {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.15) 100%);
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .step-content {
-            flex: 1;
-        }
-
-        .step-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step-title i {
-            font-size: 16px;
-            opacity: 0.8;
-        }
-
-        .step-desc {
-            font-size: 15px;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 30px;
-            opacity: 0.9;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .footer p {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .footer i.fa-lightbulb {
-            color: #ffd700;
-            animation: glow 2s ease-in-out infinite;
-        }
-
         @keyframes glow {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
-        }
-
-        .footer i.fa-heart {
-            color: #ff6b6b;
-            animation: heartbeat 1.5s ease-in-out infinite;
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
             25% { transform: scale(1.2); }
             50% { transform: scale(1); }
-        }
-
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .footer a:hover {
-            opacity: 0.7;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .subtitle { font-size: 18px; }
-            .logo { font-size: 70px; }
-            .features { grid-template-columns: 1fr; }
-            .cta-buttons { flex-direction: column; }
-            .btn { width: 100%; justify-content: center; }
-            .step { flex-direction: column; text-align: center; }
-            .step:hover { transform: translateY(-5px); }
-        }
-
-        /* Particle effect */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float-particle 10s infinite ease-in-out;
         }
 
         @keyframes float-particle {
@@ -576,176 +164,264 @@ export class WelcomeScreen {
                 opacity: 0;
             }
         }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-pulse-custom {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .animate-sparkle {
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease-out backwards;
+        }
+
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .animate-heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .particle {
+            animation: float-particle 10s infinite ease-in-out;
+        }
+
+        .feature-card-1 { animation-delay: 0.1s; }
+        .feature-card-2 { animation-delay: 0.2s; }
+        .feature-card-3 { animation-delay: 0.3s; }
+        .feature-card-4 { animation-delay: 0.4s; }
+        .feature-card-5 { animation-delay: 0.5s; }
+        .feature-card-6 { animation-delay: 0.6s; }
+
+        .glass-effect {
+            background: rgba(37, 37, 38, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--vscode-border);
+        }
+
+        .btn-vscode {
+            background-color: var(--vscode-button-bg);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-vscode:hover {
+            background-color: var(--vscode-button-hover-bg);
+        }
+
+        .btn-vscode-secondary {
+            background-color: var(--vscode-input-bg);
+            color: var(--vscode-fg);
+            border: 1px solid var(--vscode-border);
+            transition: all 0.3s ease;
+        }
+
+        .btn-vscode-secondary:hover {
+            background-color: var(--vscode-list-hover);
+            border-color: var(--vscode-accent);
+        }
     </style>
 </head>
-<body>
-    <div class="particles" id="particles"></div>
+<body class="min-h-screen overflow-x-hidden p-5">
+    <div class="fixed inset-0 pointer-events-none z-0" id="particles"></div>
     
-    <div class="container">
-        <div class="header">
-            <div class="logo-container">
-                <div class="logo-glow"></div>
-                <div class="logo">
-                    <i class="fa-solid fa-rocket"></i>
+    <div class="max-w-6xl mx-auto animate-fadeInUp relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-12 pt-16 pb-10">
+            <div class="relative inline-block mb-8">
+                <div class="absolute top-1/2 left-1/2 w-32 h-32 bg-blue-500/20 rounded-full animate-pulse-custom"></div>
+                <div class="text-9xl animate-float relative z-10">
+                    <i class="fa-solid fa-rocket text-blue-400"></i>
                 </div>
             </div>
-            <h1>Git Auto Commit</h1>
-            <p class="subtitle">
-                <i class="fa-solid fa-sparkles"></i>
+            <h1 class="text-6xl font-bold mb-4 text-gray-100">Git Auto Commit</h1>
+            <p class="text-2xl text-gray-300 font-light flex items-center justify-center gap-3">
+                <i class="fa-solid fa-sparkles text-yellow-400 animate-sparkle"></i>
                 Intelligent commit automation powered by AI
-                <i class="fa-solid fa-sparkles"></i>
+                <i class="fa-solid fa-sparkles text-yellow-400 animate-sparkle"></i>
             </p>
         </div>
 
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-bolt"></i>
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12">
+            <!-- Feature 1 -->
+            <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-1">
+                <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
+                    <i class="fa-solid fa-bolt text-yellow-400"></i>
                 </div>
-                <div class="feature-title">
-                    <i class="fa-solid fa-circle-check" style="font-size: 18px; color: #4caf50;"></i>
-                    Auto Commit
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-circle-check text-green-500 text-lg"></i>
+                    <h3 class="text-2xl font-semibold text-gray-100">Auto Commit</h3>
                 </div>
-                <div class="feature-desc">Automatically commit your changes at customizable intervals. Never lose work again!</div>
+                <p class="text-gray-300 text-base leading-relaxed">Automatically commit your changes at customizable intervals. Never lose work again!</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-brain"></i>
+            <!-- Feature 2 -->
+            <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-2">
+                <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
+                    <i class="fa-solid fa-brain text-pink-400"></i>
                 </div>
-                <div class="feature-title">
-                    <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 18px; color: #ff6ec7;"></i>
-                    AI-Powered
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-wand-magic-sparkles text-pink-400 text-lg"></i>
+                    <h3 class="text-2xl font-semibold text-gray-100">AI-Powered</h3>
                 </div>
-                <div class="feature-desc">Generate meaningful commit messages using GPT-4, Claude, Gemini, or OpenRouter.</div>
+                <p class="text-gray-300 text-base leading-relaxed">Generate meaningful commit messages using GPT-4, Claude, Gemini, or OpenRouter.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-chart-line"></i>
+            <!-- Feature 3 -->
+            <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-3">
+                <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
+                    <i class="fa-solid fa-chart-line text-cyan-400"></i>
                 </div>
-                <div class="feature-title">
-                    <i class="fa-solid fa-chart-pie" style="font-size: 18px; color: #00d4ff;"></i>
-                    Smart Dashboard
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-chart-pie text-cyan-400 text-lg"></i>
+                    <h3 class="text-2xl font-semibold text-gray-100">Smart Dashboard</h3>
                 </div>
-                <div class="feature-desc">Track your commit history, view statistics, and manage settings in one place.</div>
+                <p class="text-gray-300 text-base leading-relaxed">Track your commit history, view statistics, and manage settings in one place.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-bell"></i>
+            <!-- Feature 4 -->
+            <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-4">
+                <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
+                    <i class="fa-solid fa-bell text-orange-400"></i>
                 </div>
-                <div class="feature-title">
-                    <i class="fa-solid fa-bell-concierge" style="font-size: 18px; color: #ff9800;"></i>
-                    Smart Reminders
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-bell-concierge text-orange-400 text-lg"></i>
+                    <h3 class="text-2xl font-semibold text-gray-100">Smart Reminders</h3>
                 </div>
-                <div class="feature-desc">Get notified about uncommitted changes so you never forget to commit.</div>
+                <p class="text-gray-300 text-base leading-relaxed">Get notified about uncommitted changes so you never forget to commit.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-sliders"></i>
+            <!-- Feature 5 -->
+            <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-5">
+                <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
+                    <i class="fa-solid fa-sliders text-green-500"></i>
                 </div>
-                <div class="feature-title">
-                    <i class="fa-solid fa-palette" style="font-size: 18px; color: #4caf50;"></i>
-                    Highly Configurable
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-palette text-green-500 text-lg"></i>
+                    <h3 class="text-2xl font-semibold text-gray-100">Highly Configurable</h3>
                 </div>
-                <div class="feature-desc">Customize intervals, AI models, commit styles, and notification preferences.</div>
+                <p class="text-gray-300 text-base leading-relaxed">Customize intervals, AI models, commit styles, and notification preferences.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-gauge-high"></i>
+            <!-- Feature 6 -->
+            <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-6">
+                <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
+                    <i class="fa-solid fa-gauge-high text-rose-500"></i>
                 </div>
-                <div class="feature-title">
-                    <i class="fa-solid fa-display" style="font-size: 18px; color: #e91e63;"></i>
-                    Status Bar
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-display text-rose-500 text-lg"></i>
+                    <h3 class="text-2xl font-semibold text-gray-100">Status Bar</h3>
                 </div>
-                <div class="feature-desc">Quick access to all features with live status updates right in your editor.</div>
-            </div>
-        </div>
-
-        <div class="quick-start">
-            <h2><i class="fa-solid fa-bullseye"></i> Quick Start Guide</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <div class="step-title">
-                            <i class="fa-solid fa-toggle-on"></i>
-                            Enable Auto-Commit
-                        </div>
-                        <div class="step-desc">Click the button below or use the status bar icon to enable automatic commits</div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <div class="step-title">
-                            <i class="fa-solid fa-robot"></i>
-                            Configure AI (Optional)
-                        </div>
-                        <div class="step-desc">Set up AI-powered commit messages for more intelligent descriptions</div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <div class="step-title">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                            Customize Settings
-                        </div>
-                        <div class="step-desc">Adjust commit intervals, notification preferences, and more</div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <div class="step-title">
-                            <i class="fa-solid fa-code"></i>
-                            Start Coding!
-                        </div>
-                        <div class="step-desc">Focus on your work while the extension handles commits automatically</div>
-                    </div>
-                </div>
+                <p class="text-gray-300 text-base leading-relaxed">Quick access to all features with live status updates right in your editor.</p>
             </div>
         </div>
 
-        <div class="cta-section">
-            <div class="cta-title">
-                <i class="fa-solid fa-star" style="color: #ffd700;"></i>
+        <!-- Quick Start -->
+        <div class="glass-effect rounded-3xl p-10 my-12">
+            <h2 class="text-3xl font-semibold text-center mb-9 text-gray-100 flex items-center justify-center gap-4">
+                <i class="fa-solid fa-bullseye text-yellow-400"></i>
+                Quick Start Guide
+            </h2>
+            <div class="flex flex-col gap-5">
+                <!-- Step 1 -->
+                <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
+                    <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">1</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-toggle-on text-blue-400"></i>
+                            <h4 class="font-semibold text-lg text-gray-100">Enable Auto-Commit</h4>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">Click the button below or use the status bar icon to enable automatic commits</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
+                    <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">2</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-robot text-pink-400"></i>
+                            <h4 class="font-semibold text-lg text-gray-100">Configure AI (Optional)</h4>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">Set up AI-powered commit messages for more intelligent descriptions</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
+                    <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">3</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-screwdriver-wrench text-cyan-400"></i>
+                            <h4 class="font-semibold text-lg text-gray-100">Customize Settings</h4>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">Adjust commit intervals, notification preferences, and more</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
+                    <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">4</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-code text-green-400"></i>
+                            <h4 class="font-semibold text-lg text-gray-100">Start Coding!</h4>
+                        </div>
+                        <p class="text-gray-300 text-base leading-relaxed">Focus on your work while the extension handles commits automatically</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="glass-effect rounded-3xl p-12 my-12 text-center">
+            <div class="text-4xl font-semibold mb-4 text-gray-100 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-star text-yellow-400"></i>
                 Ready to Get Started?
             </div>
-            <p class="cta-subtitle">Choose your setup path and start committing smarter!</p>
-            <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="enableAutoCommit()">
-                    <i class="fa-solid fa-bolt"></i>
+            <p class="text-gray-300 mb-8 text-lg">Choose your setup path and start committing smarter!</p>
+            <div class="flex flex-wrap gap-5 justify-center mt-8">
+                <button onclick="enableAutoCommit()" class="btn-vscode px-12 py-5 rounded-xl text-lg font-semibold uppercase tracking-wider inline-flex items-center gap-3 hover:scale-105 hover:-translate-y-1 active:translate-y-0 active:scale-100 transition-all duration-300 shadow-lg">
+                    <i class="fa-solid fa-bolt text-xl"></i>
                     <span>Enable Auto-Commit</span>
                 </button>
-                <button class="btn btn-primary" onclick="configureAI()">
-                    <i class="fa-solid fa-brain"></i>
+                <button onclick="configureAI()" class="btn-vscode px-12 py-5 rounded-xl text-lg font-semibold uppercase tracking-wider inline-flex items-center gap-3 hover:scale-105 hover:-translate-y-1 active:translate-y-0 active:scale-100 transition-all duration-300 shadow-lg">
+                    <i class="fa-solid fa-brain text-xl"></i>
                     <span>Configure AI</span>
                 </button>
-                <button class="btn btn-secondary" onclick="openSettings()">
-                    <i class="fa-solid fa-gear"></i>
+                <button onclick="openSettings()" class="btn-vscode-secondary px-12 py-5 rounded-xl text-lg font-semibold uppercase tracking-wider inline-flex items-center gap-3 hover:scale-105 hover:-translate-y-1 active:translate-y-0 active:scale-100 transition-all duration-300">
+                    <i class="fa-solid fa-gear text-xl"></i>
                     <span>Open Settings</span>
                 </button>
-                <button class="btn btn-secondary" onclick="dontShowAgain()">
-                    <i class="fa-solid fa-circle-check"></i>
+                <button onclick="dontShowAgain()" class="btn-vscode-secondary px-12 py-5 rounded-xl text-lg font-semibold uppercase tracking-wider inline-flex items-center gap-3 hover:scale-105 hover:-translate-y-1 active:translate-y-0 active:scale-100 transition-all duration-300">
+                    <i class="fa-solid fa-circle-check text-xl"></i>
                     <span>Got It!</span>
                 </button>
             </div>
         </div>
 
-        <div class="footer">
-            <div class="footer-content">
-                <p>
-                    <i class="fa-solid fa-lightbulb"></i> 
+        <!-- Footer -->
+        <div class="text-center mt-12 pb-8 text-gray-400">
+            <div class="flex flex-col gap-4 items-center">
+                <p class="flex items-center gap-3 text-lg">
+                    <i class="fa-solid fa-lightbulb text-yellow-400 animate-glow"></i>
                     Access this screen anytime from the status bar menu → About
                 </p>
-                <p>
-                    Made with <i class="fa-solid fa-heart"></i> by 
-                    <strong style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">KEHEM IT</strong>
+                <p class="flex items-center gap-2 text-lg">
+                    Made with <i class="fa-solid fa-heart text-red-500 animate-heartbeat"></i> by
+                    <strong class="text-gray-200">KEHEM IT</strong>
                 </p>
             </div>
         </div>
@@ -777,7 +453,7 @@ export class WelcomeScreen {
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
+                particle.className = 'particle absolute w-1 h-1 bg-blue-400/50 rounded-full';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 10 + 's';
                 particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
