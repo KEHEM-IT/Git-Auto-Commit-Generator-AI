@@ -4,7 +4,7 @@
 
 Never write commit messages manually again! Git Auto Commit Generator analyzes your code changes and creates meaningful, professional commit messages automatically. Whether you prefer AI-powered messages or smart default generation, this extension has you covered.
 
-![Git Auto Commit Generator](https://raw.githubusercontent.com/yourusername/git-auto-commit/main/demo.webp)
+![Git Auto Commit Generator](https://raw.githubusercontent.com/KEHEM-IT/Git-Auto-Committer---Generative-AI/refs/heads/main/assets/Auto_Git_Commit_Message_Generate.gif)
 
 ## ✨ Features
 
@@ -44,7 +44,7 @@ Never write commit messages manually again! Git Auto Commit Generator analyzes y
 ## 🎬 Demo
 
 ### Quick Commit Generation
-![Generate Commit Message](https://raw.githubusercontent.com/yourusername/git-auto-commit/main/demo-generate.webp)
+![Generate Commit Message](https://raw.githubusercontent.com/KEHEM-IT/Git-Auto-Committer---Generative-AI/refs/heads/main/assets/Detailed_Generate_Messages.gif)
 
 ### Dashboard Overview
 ![Commit Dashboard](https://raw.githubusercontent.com/yourusername/git-auto-commit/main/demo-dashboard.webp)
