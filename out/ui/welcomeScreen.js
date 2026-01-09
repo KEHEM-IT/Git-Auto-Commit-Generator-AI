@@ -88,7 +88,7 @@ class WelcomeScreen {
         }
         .float-animation {
             animation: float 3s ease-in-out infinite;
-        }
+        } 
     </style>
 </head>
 <body class="bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 min-h-screen p-6">

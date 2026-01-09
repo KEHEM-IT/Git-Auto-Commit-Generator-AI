@@ -1,9 +1,9 @@
 {
-  "name": "git-auto-commit",
+  "name": "git-auto-committer",
   "displayName": "Git Auto Commit Generator AI",
   "description": "Automatically generate meaningful commit messages and manage commits with AI-powered suggestions",
   "version": "1.0.0",
-  "publisher": "KEHEM-IT",
+  "publisher": "KEHEMIT",
   "engines": {
     "vscode": "^1.75.0"
   },

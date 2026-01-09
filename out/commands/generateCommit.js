@@ -72,7 +72,6 @@ class GenerateCommitCommand {
             if (silent && autoCommitEnabled) {
                 if (autoCommitWithoutConfirm) {
                     await this.commitChanges(context, commitMessage, files, workspaceFolder.uri.fsPath);
-                    vscode.window.showInformationMessage(` Auto-committed: ${commitMessage.split('\n')[0]}`);
                 }
                 else {
                     const action = await vscode.window.showInformationMessage(`Auto-commit ready: "${commitMessage.split('\n')[0]}"`, 'Commit Now', 'Skip');
@@ -83,7 +82,7 @@ class GenerateCommitCommand {
             }
             else if (!silent) {
                 // Message is already in source control, user can review and commit manually
-                // No additional notification needed
+                // Open Source Control view for review
                 vscode.commands.executeCommand('workbench.view.scm');
             }
         }
@@ -108,7 +107,8 @@ class GenerateCommitCommand {
                 commitHistory = commitHistory.slice(0, 50);
             }
             await context.globalState.update('commitHistory', commitHistory);
-            vscode.window.showInformationMessage(` Committed: ${message.split('\n')[0]}`);
+            // Show success notification
+            vscode.window.showInformationMessage(`Committed successfully: ${message.split('\n')[0]}`);
         }
         catch (error) {
             vscode.window.showErrorMessage(`Failed to commit: ${error}`);
