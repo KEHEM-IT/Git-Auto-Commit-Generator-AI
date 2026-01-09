@@ -1,20 +1,48 @@
 {
-  "name": "git-auto-commit",
-  "displayName": "Git Auto Commit Generator AI",
-  "description": "Automatically generate meaningful commit messages and manage commits with AI-powered suggestions",
+  "name": "git-auto-committer-generative-ai",
+  "displayName": "Git Auto Committer - Generative AI",
+  "description": "Automatically generate meaningful commit messages and manage commits with AI-powered suggestions using GPT-4, Claude, Gemini, and OpenRouter",
   "version": "1.0.0",
-  "publisher": "KEHEM IT",
+  "publisher": "KEHEMIT",
   "engines": {
     "vscode": "^1.75.0"
   },
   "categories": [
     "SCM Providers",
+    "Machine Learning",
     "Other"
   ],
   "activationEvents": [
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KEHEM-IT/Git-Auto-Committer-Generative-AI.git"
+  },
+  "homepage": "https://www.kehem.com",
+  "bugs": {
+    "url": "https://github.com/KEHEM-IT/Git-Auto-Committer-Generative-AI/issues"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "auto-commit",
+    "ai",
+    "scm",
+    "artificial intelligence",
+    "gpt",
+    "claude",
+    "gemini",
+    "openrouter",
+    "commit message",
+    "automation"
+  ],
   "contributes": {
     "commands": [
       {
@@ -175,7 +203,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/node": "16.x",
@@ -188,17 +217,5 @@
   "dependencies": {
     "node-fetch": "^2.7.0",
     "@types/node-fetch": "^2.6.11"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KEHEM-IT/Git-Auto-Commit-Generator-AI.git"
-  },
-  "keywords": [
-    "git",
-    "commit",
-    "auto-commit",
-    "ai",
-    "scm"
-  ],
-  "icon": "images/icon.png"
+  }
 }

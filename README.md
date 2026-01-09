@@ -1,294 +1,208 @@
-# Git Auto Commit Generator - VS Code Extension
+# Git Auto Committer - Generative AI
 
-An intelligent VS Code extension that automatically generates meaningful commit messages based on your code changes and helps you maintain a consistent commit history.
+![Logo](images/icon.png)
 
-## Features
+**Never lose your work again!** Git Auto Committer is an intelligent VS Code extension that automatically generates meaningful commit messages and manages commits using cutting-edge AI models including GPT-4, Claude, Gemini, and OpenRouter.
 
-### ✨ Core Features
-- **Smart Commit Message Generation**: Automatically analyzes your code changes and generates meaningful commit messages following conventional commit standards
-- **Auto-Commit Timer**: Set a custom interval (default 10 minutes) to automatically commit staged changes
-- **Commit Reminders**: Get notified every 5 minutes (configurable) when you have uncommitted changes
-- **Commit History Dashboard**: View all your commits in a beautiful dashboard with timestamps and file details
-- **Source Control Integration**: Seamlessly integrates with VS Code's built-in Git support
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=KEHEMIT.git-auto-committer-generative-ai)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Made by KEHEM IT](https://img.shields.io/badge/made%20by-KEHEM%20IT-orange.svg)](https://www.kehem.com)
 
-### 🎯 Advanced Features
-- **Conventional Commit Format**: Follows the conventional commit specification (feat:, fix:, chore:, docs:, etc.)
-- **Intelligent File Analysis**: Recognizes different file types and purposes (tests, configs, documentation)
-- **Status Bar Integration**: Quick access to dashboard and auto-commit status
-- **Persistent History**: Keeps track of your last 50 commits with full details
+## ✨ Features
 
-## Installation
+### 🚀 Auto-Commit
+Automatically commit your changes at customizable intervals. Set it and forget it - your work is always saved!
 
-### From Source (Development)
+### 🧠 AI-Powered Commit Messages
+Generate meaningful, context-aware commit messages using state-of-the-art AI models:
+- **OpenAI GPT-4** - Industry-leading language model
+- **Anthropic Claude** - Advanced reasoning capabilities
+- **Google Gemini** - Multimodal AI understanding
+- **OpenRouter** - Access to multiple AI models
 
-1. **Clone the repository:**
-```bash
-git clone https://github.com/yourusername/git-auto-commit.git
-cd git-auto-commit
-```
+### 📊 Smart Dashboard
+Track your commit history, view statistics, and manage all settings in one beautiful interface.
 
-2. **Install dependencies:**
-```bash
-npm install
-```
+### 🔔 Smart Reminders
+Get notified about uncommitted changes so you never forget to commit your important work.
 
-3. **Compile the extension:**
-```bash
-npm run compile
-```
+### ⚙️ Highly Configurable
+- Customize commit intervals (1-120 minutes)
+- Choose your preferred AI model and provider
+- Select commit message styles (conventional, simple, detailed)
+- Configure notification preferences
 
-4. **Open in VS Code:**
-```bash
-code .
-```
+### 📈 Status Bar Integration
+Quick access to all features with live status updates right in your VS Code status bar.
 
-5. **Press F5** to open a new Extension Development Host window with your extension loaded
+## 🎯 Quick Start
 
-### Directory Structure
+1. **Install the Extension**
+   - Search for "Git Auto Committer - Generative AI" in VS Code Extensions
+   - Click Install
 
-Create the following structure:
-```
-git-auto-commit/
-├── src/
-│   └── extension.ts    (Main extension file)
-├── package.json
-├── tsconfig.json
-├── README.md
-└── .vscode/
-    └── launch.json     (For debugging)
-```
+2. **Enable Auto-Commit**
+   - Click the Git icon in your status bar
+   - Select "Enable Auto-Commit"
 
-## Usage
+3. **Configure AI (Optional)**
+   - Open the quick menu from status bar
+   - Select "Configure AI"
+   - Enter your API key for your preferred provider
 
-### Quick Start
+4. **Start Coding!**
+   - The extension handles everything automatically
+   - Focus on your code while commits happen in the background
 
-1. **Open Command Palette** (`Ctrl+Shift+P` or `Cmd+Shift+P`)
-2. Type "Git Auto Commit" to see available commands:
-   - `Git Auto Commit: Generate Commit Message` - Generate message for current changes
-   - `Git Auto Commit: Show Commit Dashboard` - View commit history
-   - `Git Auto Commit: Toggle Auto Commit` - Enable/disable auto-commit
+## 📖 Usage
+
+### Status Bar Menu
+Click the Git icon in your status bar to access:
+- Generate & Commit
+- Check Changes
+- Toggle Auto-Commit
+- Configure AI
+- Open Dashboard
+- Settings
 
 ### Commands
+Access via Command Palette (`Ctrl/Cmd + Shift + P`):
+- `Git Auto Commit: Generate Commit Message`
+- `Git Auto Commit: Show Dashboard`
+- `Git Auto Commit: Toggle Auto Commit`
+- `Git Auto Commit: Configure AI`
+- `Git Auto Commit: Show Welcome Screen`
 
-| Command | Description | Shortcut |
-|---------|-------------|----------|
-| Generate Commit Message | Analyzes changes and generates a commit message | - |
-| Show Commit Dashboard | Opens the history dashboard | Click status bar icon |
-| Toggle Auto Commit | Enable/disable automatic commits | - |
+## ⚙️ Configuration
 
-### Settings
+### Basic Settings
+- **Enable Auto-Commit**: Turn automatic commits on/off
+- **Auto-Commit Interval**: Time between automatic commits (1-120 minutes)
+- **Enable Reminder**: Get notifications for uncommitted changes
+- **Reminder Interval**: Time between reminder notifications (1-60 minutes)
 
-Access settings through `File > Preferences > Settings` and search for "Git Auto Commit":
+### AI Settings
+- **Use AI Generation**: Enable AI-powered commit messages
+- **AI Provider**: Choose between OpenAI, Anthropic, Gemini, or OpenRouter
+- **AI Model**: Specify the exact model (e.g., gpt-4o-mini, claude-3-5-sonnet)
+- **API Keys**: Secure storage for your AI provider API keys
+- **Commit Message Style**: Choose conventional, simple, or detailed format
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `gitAutoCommit.enableAutoCommit` | `false` | Enable automatic commits |
-| `gitAutoCommit.autoCommitWithoutConfirmation` | `false` | ⚠️ Commit WITHOUT asking (use with caution!) |
-| `gitAutoCommit.autoCommitInterval` | `10` | Auto-commit interval in minutes (1-120) |
-| `gitAutoCommit.enableReminder` | `true` | Show commit reminders |
-| `gitAutoCommit.reminderInterval` | `5` | Reminder interval in minutes (1-60) |
-| `gitAutoCommit.useAIGeneration` | `false` | Use AI for advanced message generation |
-| `gitAutoCommit.commitMessageStyle` | `conventional` | Message style: conventional, simple, or detailed |
+## 🔐 Security
 
-### ⚠️ Auto-Commit Behavior
+- API keys are stored securely in VS Code's settings
+- Never committed to your repository
+- Transmitted only to your chosen AI provider
+- No data collection or telemetry
 
-The extension offers **two modes** for auto-commit:
+## 🎨 Commit Message Styles
 
-#### 1. **With Confirmation (Default & Recommended)**
-- Timer triggers every X minutes
-- You see a notification: "Auto-commit ready: [message]"
-- Choose "Commit Now" or "Skip"
-- **Safe for production use**
-
-#### 2. **Without Confirmation (Advanced)**
-- Enable `autoCommitWithoutConfirmation` in settings
-- Commits happen **automatically without asking**
-- **Use with extreme caution!**
-- Best for: personal projects, experimentation, prototyping
-- **Not recommended for:** team projects, production code
-
-### First-Time Setup
-
-When you first install the extension, you'll see a welcome message:
-
+### Conventional Commits
 ```
-🚀 Welcome to Git Auto Commit!
-This extension can automatically commit your changes at regular intervals.
-Would you like to enable auto-commit?
-
-[Enable Auto-Commit] [Not Now] [Learn More]
+feat: add user authentication
+fix: resolve login page crash
+docs: update API documentation
 ```
 
-Choose your preference, and you can always change it later in settings.
-
-### Example Workflow
-
-1. **Make some code changes** in your workspace
-2. **Click the status bar icon** or run "Generate Commit Message"
-3. **Review the generated message** in the Source Control input box
-4. **Choose an action:**
-   - Click "Commit" to commit immediately
-   - Click "Edit Message" to modify before committing
-   - Click "Cancel" to discard
-
-### Commit Message Examples
-
-The extension generates contextual messages based on your changes:
-
+### Simple
 ```
-feat: update ts, js files
-
-- src/components/Button.tsx
-- src/utils/helpers.js
-- and 3 more...
+Add user authentication
+Fix login page crash
+Update API documentation
 ```
 
+### Detailed
 ```
-docs: update documentation
-
-- README.md
-```
-
-```
-test: update test files
-
-- tests/unit/component.test.ts
+Implement comprehensive user authentication system with JWT tokens,
+including login, logout, and session management features
 ```
 
-## Dashboard
+## 🤖 Supported AI Providers
 
-The commit dashboard provides:
-- ✅ Current settings overview
-- 📊 Commit history with timestamps
-- 🔍 File details for each commit
-- 🔄 Refresh and clear history options
+### OpenAI
+- GPT-4, GPT-4 Turbo, GPT-3.5
+- Get your API key: https://platform.openai.com/api-keys
 
-Access it by:
-- Clicking the status bar icon
-- Running "Show Commit Dashboard" from command palette
+### Anthropic Claude
+- Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku
+- Get your API key: https://console.anthropic.com/
 
-## Configuration Examples
+### Google Gemini
+- Gemini Pro, Gemini Ultra
+- Get your API key: https://makersuite.google.com/app/apikey
 
-### Enable Auto-Commit Every 15 Minutes (With Confirmation)
+### OpenRouter
+- Access to 100+ models including GPT-4, Claude, Llama, and more
+- Get your API key: https://openrouter.ai/keys
 
-```json
-{
-  "gitAutoCommit.enableAutoCommit": true,
-  "gitAutoCommit.autoCommitInterval": 15,
-  "gitAutoCommit.autoCommitWithoutConfirmation": false
-}
-```
+## 📊 Dashboard Features
 
-### Enable Fully Automatic Commits (No Confirmation)
+- **Commit History**: View all your commits with timestamps
+- **Statistics**: Track your commit patterns and productivity
+- **Quick Actions**: Enable/disable features, configure settings
+- **Visual Analytics**: Beautiful charts showing your commit activity
 
-⚠️ **Use with caution!**
+## 🛠️ Requirements
 
-```json
-{
-  "gitAutoCommit.enableAutoCommit": true,
-  "gitAutoCommit.autoCommitInterval": 10,
-  "gitAutoCommit.autoCommitWithoutConfirmation": true
-}
-```
+- Visual Studio Code 1.75.0 or higher
+- Git installed and configured
+- Active Git repository
+- (Optional) API key for AI-powered features
 
-### Disable Reminders
+## 🐛 Troubleshooting
 
-```json
-{
-  "gitAutoCommit.enableReminder": false
-}
-```
+### Auto-commit not working?
+1. Ensure Git is installed and repository is initialized
+2. Check that auto-commit is enabled in settings
+3. Verify you have uncommitted changes
 
-### Use Simple Message Style
+### AI generation failing?
+1. Verify your API key is correct
+2. Check your internet connection
+3. Ensure you have API credits/quota remaining
+4. Try a different AI provider
 
-```json
-{
-  "gitAutoCommit.commitMessageStyle": "simple"
-}
-```
+### Extension not appearing?
+1. Reload VS Code window
+2. Check extension is enabled
+3. Verify you're in a Git repository
 
-## How It Works
+## 📝 Release Notes
 
-1. **Change Detection**: Uses `git status --porcelain` to detect modified files
-2. **Analysis**: Examines file types, paths, and patterns
-3. **Message Generation**: Applies rules based on conventional commit standards
-4. **Integration**: Populates VS Code's Source Control input box
-5. **History Tracking**: Stores commit metadata in workspace state
+### Version 1.0.0
+- 🎉 Initial release
+- ✨ Auto-commit functionality
+- 🤖 Multi-provider AI support
+- 📊 Interactive dashboard
+- 🔔 Smart notifications
+- ⚙️ Comprehensive settings
 
-## Future Enhancements
+## 🤝 Contributing
 
-Planned features for future releases:
-- 🤖 AI-powered commit messages using Claude API
-- 🌐 Multi-repository support
-- 📈 Commit statistics and insights
-- 🎨 Customizable message templates
-- 🔗 GitHub/GitLab integration
-- 📝 Commit message validation
-- 🔄 Undo/amend last commit
+We welcome contributions! Visit our GitHub repository to:
+- Report bugs
+- Suggest features
+- Submit pull requests
 
-## Development
+## 📄 License
 
-### Building from Source
+This extension is licensed under the [MIT License](LICENSE).
 
-```bash
-# Install dependencies
-npm install
+## 🌐 Links
 
-# Compile TypeScript
-npm run compile
+- **Website**: [www.kehem.com](https://www.kehem.com)
+- **GitHub**: [KEHEM-IT](https://github.com/KEHEM-IT)
+- **Support**: Report issues on GitHub
 
-# Watch mode (auto-compile on save)
-npm run watch
+## 💖 Support
 
-# Run tests
-npm test
-```
-
-### Debugging
-
-1. Open the project in VS Code
-2. Press `F5` to launch Extension Development Host
-3. Set breakpoints in `src/extension.ts`
-4. Test your changes in the development host
-
-## Troubleshooting
-
-### Extension not working
-- Ensure you're in a Git repository
-- Check that Git is installed and accessible from terminal
-- Verify VS Code has the built-in Git extension enabled
-
-### Auto-commit not triggering
-- Check that `enableAutoCommit` is set to `true`
-- Verify there are actual changes to commit
-- Look for errors in the Output panel (View > Output > Git Auto Commit)
-
-### Commit history not showing
-- Try refreshing the dashboard
-- Check the Output panel for errors
-
-## Contributing
-
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-MIT License - feel free to use this extension in your projects!
-
-## Support
-
-- 🐛 Report issues on [GitHub Issues](https://github.com/yourusername/git-auto-commit/issues)
-- 💡 Request features on [GitHub Discussions](https://github.com/yourusername/git-auto-commit/discussions)
-- ⭐ Star the repo if you find it useful!
-
-## Credits
-
-Created with ❤️ for developers who value clean commit history
+If you find this extension helpful, please:
+- ⭐ Star us on GitHub
+- 📝 Leave a review on the VS Code Marketplace
+- 🐦 Share with your developer friends
 
 ---
 
-**Happy Committing! 🚀**
+**Made with ❤️ by KEHEM IT**
+
+[www.kehem.com](https://www.kehem.com)

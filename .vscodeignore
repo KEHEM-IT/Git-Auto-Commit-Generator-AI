@@ -1,0 +1,41 @@
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+.yarnrc
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+node_modules/**
+.git/**
+.DS_Store
+*.vsix
+
+# Documentation files (keep only README, CHANGELOG, and LICENSE)
+START_HERE.md
+QUICK_REFERENCE.txt
+AI_SETUP_GUIDE.md
+CHANGES.md
+ENHANCED_FEATURES.md
+ENHANCEMENT_SUMMARY.md
+NEW_FEATURES.md
+REFACTORING_SUMMARY.md
+SETUP_GUIDE.md
+TESTING_GUIDE.md
+TROUBLESHOOTING.md
+VISUAL_PREVIEW.md
+MARKETPLACE_READY.md
+PUBLISHING_GUIDE.md
+VISUAL_CHANGES.md
+
+# Build scripts
+setup.bat
+setup.sh
+build-and-package.bat
+build-and-package.sh
+
+# Raw images
+images/icon-RAW.png
+images/icon_cropped.png

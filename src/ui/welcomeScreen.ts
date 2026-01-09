@@ -1,30 +1,34 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 
 export class WelcomeScreen {
     static async show(context: vscode.ExtensionContext, forceShow: boolean = false): Promise<void> {
         const hasShownWelcome = context.globalState.get('hasShownWelcome', false);
         
-        // Skip if already shown and not forced
         if (hasShownWelcome && !forceShow) {
             return;
         }
         
-        // Mark as shown before opening to prevent duplicate calls
         if (!forceShow) {
             await context.globalState.update('hasShownWelcome', true);
         }
 
         const panel = vscode.window.createWebviewPanel(
             'gitAutoCommitWelcome',
-            'Welcome to Git Auto Commit',
+            'Welcome to Git Auto Committer',
             vscode.ViewColumn.One,
             {
                 enableScripts: true,
-                retainContextWhenHidden: true
+                retainContextWhenHidden: true,
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'images'))]
             }
         );
 
-        panel.webview.html = this.getWelcomeHtml();
+        const logoUri = panel.webview.asWebviewUri(
+            vscode.Uri.file(path.join(context.extensionPath, 'images', 'icon.png'))
+        );
+
+        panel.webview.html = this.getWelcomeHtml(logoUri.toString());
 
         panel.webview.onDidReceiveMessage(
             async message => {
@@ -34,7 +38,6 @@ export class WelcomeScreen {
                         await config.update('enableAutoCommit', true, vscode.ConfigurationTarget.Global);
                         vscode.window.showInformationMessage('✓ Auto-commit enabled!');
                         panel.dispose();
-                        // Open dashboard after enabling
                         setTimeout(() => {
                             vscode.commands.executeCommand('gitAutoCommit.showDashboard');
                         }, 500);
@@ -44,7 +47,10 @@ export class WelcomeScreen {
                         vscode.commands.executeCommand('gitAutoCommit.configureAI');
                         break;
                     case 'openSettings':
-                        vscode.commands.executeCommand('workbench.action.openSettings', '@ext:KEHEM-IT.git-auto-commit');
+                        vscode.commands.executeCommand('workbench.action.openSettings', 'gitAutoCommit');
+                        break;
+                    case 'openWebsite':
+                        vscode.env.openExternal(vscode.Uri.parse('https://www.kehem.com'));
                         break;
                     case 'close':
                         panel.dispose();
@@ -57,27 +63,24 @@ export class WelcomeScreen {
         );
     }
 
-    private static getWelcomeHtml(): string {
+    private static getWelcomeHtml(logoUri: string): string {
         return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Git Auto Commit</title>
+    <title>Welcome to Git Auto Committer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* VS Code Dark Theme Colors */
         :root {
             --vscode-bg: #1e1e1e;
             --vscode-fg: #cccccc;
             --vscode-editor-bg: #252526;
-            --vscode-sidebar-bg: #252526;
             --vscode-input-bg: #3c3c3c;
             --vscode-border: #3c3c3c;
             --vscode-button-bg: #0e639c;
             --vscode-button-hover-bg: #1177bb;
-            --vscode-accent: #007acc;
             --vscode-list-hover: #2a2d2e;
         }
 
@@ -88,37 +91,19 @@ export class WelcomeScreen {
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
-            }
-            25% { 
-                transform: translateY(-10px) rotate(-5deg); 
-            }
-            75% { 
-                transform: translateY(-15px) rotate(5deg); 
-            }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(5deg); }
         }
 
         @keyframes pulse {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.3;
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0;
-            }
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
         }
 
         @keyframes sparkle {
@@ -127,14 +112,8 @@ export class WelcomeScreen {
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes glow {
@@ -148,54 +127,13 @@ export class WelcomeScreen {
             50% { transform: scale(1); }
         }
 
-        @keyframes float-particle {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(50px);
-                opacity: 0;
-            }
-        }
-
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-pulse-custom {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .animate-sparkle {
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.6s ease-out backwards;
-        }
-
-        .animate-glow {
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        .animate-heartbeat {
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        .particle {
-            animation: float-particle 10s infinite ease-in-out;
-        }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-pulse-custom { animation: pulse 2s ease-in-out infinite; }
+        .animate-sparkle { animation: sparkle 1.5s ease-in-out infinite; }
+        .animate-fadeIn { animation: fadeIn 0.6s ease-out backwards; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
 
         .feature-card-1 { animation-delay: 0.1s; }
         .feature-card-2 { animation-delay: 0.2s; }
@@ -229,33 +167,35 @@ export class WelcomeScreen {
 
         .btn-vscode-secondary:hover {
             background-color: var(--vscode-list-hover);
-            border-color: var(--vscode-accent);
+            border-color: var(--vscode-button-bg);
+        }
+
+        .logo-img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
         }
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden p-5">
-    <div class="fixed inset-0 pointer-events-none z-0" id="particles"></div>
-    
     <div class="max-w-6xl mx-auto animate-fadeInUp relative z-10">
         <!-- Header -->
         <div class="text-center mb-12 pt-16 pb-10">
             <div class="relative inline-block mb-8">
-                <div class="absolute top-1/2 left-1/2 w-32 h-32 bg-blue-500/20 rounded-full animate-pulse-custom"></div>
-                <div class="text-9xl animate-float relative z-10">
-                    <i class="fa-solid fa-rocket text-blue-400"></i>
-                </div>
+                <div class="absolute top-1/2 left-1/2 w-40 h-40 bg-blue-500/20 rounded-full animate-pulse-custom"></div>
+                <img src="${logoUri}" alt="Git Auto Committer Logo" class="logo-img animate-float relative z-10 mx-auto">
             </div>
-            <h1 class="text-6xl font-bold mb-4 text-gray-100">Git Auto Commit</h1>
+            <h1 class="text-6xl font-bold mb-4 text-gray-100">Git Auto Committer</h1>
             <p class="text-2xl text-gray-300 font-light flex items-center justify-center gap-3">
                 <i class="fa-solid fa-sparkles text-yellow-400 animate-sparkle"></i>
-                Intelligent commit automation powered by AI
+                Powered by Generative AI
                 <i class="fa-solid fa-sparkles text-yellow-400 animate-sparkle"></i>
             </p>
         </div>
 
         <!-- Features Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12">
-            <!-- Feature 1 -->
             <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-1">
                 <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
                     <i class="fa-solid fa-bolt text-yellow-400"></i>
@@ -267,7 +207,6 @@ export class WelcomeScreen {
                 <p class="text-gray-300 text-base leading-relaxed">Automatically commit your changes at customizable intervals. Never lose work again!</p>
             </div>
 
-            <!-- Feature 2 -->
             <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-2">
                 <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
                     <i class="fa-solid fa-brain text-pink-400"></i>
@@ -279,7 +218,6 @@ export class WelcomeScreen {
                 <p class="text-gray-300 text-base leading-relaxed">Generate meaningful commit messages using GPT-4, Claude, Gemini, or OpenRouter.</p>
             </div>
 
-            <!-- Feature 3 -->
             <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-3">
                 <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
                     <i class="fa-solid fa-chart-line text-cyan-400"></i>
@@ -291,7 +229,6 @@ export class WelcomeScreen {
                 <p class="text-gray-300 text-base leading-relaxed">Track your commit history, view statistics, and manage settings in one place.</p>
             </div>
 
-            <!-- Feature 4 -->
             <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-4">
                 <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
                     <i class="fa-solid fa-bell text-orange-400"></i>
@@ -303,7 +240,6 @@ export class WelcomeScreen {
                 <p class="text-gray-300 text-base leading-relaxed">Get notified about uncommitted changes so you never forget to commit.</p>
             </div>
 
-            <!-- Feature 5 -->
             <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-5">
                 <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
                     <i class="fa-solid fa-sliders text-green-500"></i>
@@ -315,7 +251,6 @@ export class WelcomeScreen {
                 <p class="text-gray-300 text-base leading-relaxed">Customize intervals, AI models, commit styles, and notification preferences.</p>
             </div>
 
-            <!-- Feature 6 -->
             <div class="glass-effect rounded-2xl p-8 hover:bg-[#2d2d30] hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer animate-fadeIn feature-card-6">
                 <div class="text-5xl mb-5 inline-block transition-transform duration-300 hover:scale-125 hover:rotate-6">
                     <i class="fa-solid fa-gauge-high text-rose-500"></i>
@@ -335,7 +270,6 @@ export class WelcomeScreen {
                 Quick Start Guide
             </h2>
             <div class="flex flex-col gap-5">
-                <!-- Step 1 -->
                 <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
                     <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">1</div>
                     <div class="flex-1">
@@ -347,7 +281,6 @@ export class WelcomeScreen {
                     </div>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
                     <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">2</div>
                     <div class="flex-1">
@@ -359,7 +292,6 @@ export class WelcomeScreen {
                     </div>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
                     <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">3</div>
                     <div class="flex-1">
@@ -371,7 +303,6 @@ export class WelcomeScreen {
                     </div>
                 </div>
 
-                <!-- Step 4 -->
                 <div class="flex items-center gap-6 p-5 bg-[#2a2d2e] rounded-xl hover:bg-[#2d2d30] hover:translate-x-2 transition-all duration-300 border border-[#3c3c3c]">
                     <div class="text-3xl font-bold bg-gradient-to-br from-[#3c3c3c] to-[#2a2d2e] w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-[#4c4c4c] text-gray-100">4</div>
                     <div class="flex-1">
@@ -421,7 +352,10 @@ export class WelcomeScreen {
                 </p>
                 <p class="flex items-center gap-2 text-lg">
                     Made with <i class="fa-solid fa-heart text-red-500 animate-heartbeat"></i> by
-                    <strong class="text-gray-200">KEHEM IT</strong>
+                    <a href="#" onclick="openWebsite(event)" class="text-blue-400 hover:text-blue-300 font-semibold underline">KEHEM IT</a>
+                </p>
+                <p class="text-sm opacity-75">
+                    <a href="#" onclick="openWebsite(event)" class="hover:text-blue-400 transition-colors">www.kehem.com</a>
                 </p>
             </div>
         </div>
@@ -446,22 +380,10 @@ export class WelcomeScreen {
             vscode.postMessage({ command: 'dontShowAgain' });
         }
 
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle absolute w-1 h-1 bg-blue-400/50 rounded-full';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                particlesContainer.appendChild(particle);
-            }
+        function openWebsite(event) {
+            if (event) event.preventDefault();
+            vscode.postMessage({ command: 'openWebsite' });
         }
-
-        createParticles();
     </script>
 </body>
 </html>`;

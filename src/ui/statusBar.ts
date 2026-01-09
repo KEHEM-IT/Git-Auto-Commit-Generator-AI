@@ -42,7 +42,7 @@ export class StatusBarManager {
         this.statusBarItem.text = text;
         
         // Build tooltip
-        let tooltip = 'Git Auto Commit\n\n';
+        let tooltip = 'Git Auto Committer\n\n';
         tooltip += `Mode: ${autoEnabled ? 'Auto-Commit Enabled' : 'Manual Mode'}\n`;
         tooltip += `AI Generation: ${useAI ? 'Enabled ✓' : 'Disabled'}\n`;
         tooltip += `Uncommitted Changes: ${changesCount}\n`;
@@ -139,7 +139,7 @@ export class StatusBarManager {
         ];
 
         const selected = await vscode.window.showQuickPick(items, {
-            placeHolder: 'Git Auto Commit - Quick Actions',
+            placeHolder: 'Git Auto Committer - Quick Actions',
             matchOnDescription: true,
             matchOnDetail: true,
         });
@@ -165,7 +165,7 @@ export class StatusBarManager {
                 vscode.commands.executeCommand('gitAutoCommit.showDashboard');
                 break;
             case '$(gear) Settings':
-                vscode.commands.executeCommand('workbench.action.openSettings', '@ext:KEHEM-IT.git-auto-commit');
+                vscode.commands.executeCommand('workbench.action.openSettings', 'gitAutoCommit');
                 break;
             case '$(info) About':
                 vscode.commands.executeCommand('gitAutoCommit.showWelcome');
