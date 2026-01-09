@@ -42,9 +42,9 @@ If compilation is successful, you should see:
 1. Open Settings: `Ctrl+,`
 2. Search for: `Git Auto Commit`
 3. Verify you can see and edit:
-   - ✓ `AI Provider` (dropdown with 4 options)
-   - ✓ `AI Model` (text input)
-   - ✓ `AI Api Key` (password input)
+   -  `AI Provider` (dropdown with 4 options)
+   -  `AI Model` (text input)
+   -  `AI Api Key` (password input)
 
 ### 4. Test Commit Generation
 

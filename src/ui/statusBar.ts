@@ -44,7 +44,7 @@ export class StatusBarManager {
         // Build tooltip
         let tooltip = 'Git Auto Commit\n\n';
         tooltip += `Mode: ${autoEnabled ? 'Auto-Commit Enabled' : 'Manual Mode'}\n`;
-        tooltip += `AI Generation: ${useAI ? 'Enabled ✓' : 'Disabled'}\n`;
+        tooltip += `AI Generation: ${useAI ? 'Enabled' : 'Disabled'}\n`;
         tooltip += `Uncommitted Changes: ${changesCount}\n`;
         
         if (this.lastCommitTime) {
@@ -177,7 +177,7 @@ export class StatusBarManager {
         const hasChanges = await GitService.checkForChanges();
         
         if (!hasChanges) {
-            vscode.window.showInformationMessage('✓ No uncommitted changes');
+            vscode.window.showInformationMessage(' No uncommitted changes');
             return;
         }
 

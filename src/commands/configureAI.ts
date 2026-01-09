@@ -54,7 +54,7 @@ export class ConfigureAICommand {
         }
 
         vscode.window.showInformationMessage(
-            `✓ AI configured: ${provider.label}${model ? ` (${model.label})` : ''}`,
+            ` AI configured: ${provider.label}${model ? ` (${model.label})` : ''}`,
             'Test It',
             'View Settings'
         ).then(action => {

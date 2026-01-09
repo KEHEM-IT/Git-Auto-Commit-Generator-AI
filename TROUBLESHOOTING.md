@@ -311,9 +311,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Use forward slashes or double backslashes:
 ```json
-"rootDir": "src"          ✓ Good
-"rootDir": "src/"         ✓ Good
-"rootDir": "src\\"        ✓ Good
+"rootDir": "src"           Good
+"rootDir": "src/"          Good
+"rootDir": "src\\"         Good
 "rootDir": "src\"         ✗ Bad
 ```
 

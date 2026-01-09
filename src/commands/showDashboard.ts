@@ -34,7 +34,7 @@ export class ShowDashboardCommand {
                     case 'clearHistory':
                         await context.globalState.update('commitHistory', []);
                         updateDashboard();
-                        vscode.window.showInformationMessage('✓ Commit history cleared');
+                        vscode.window.showInformationMessage(' Commit history cleared');
                         break;
                         
                     case 'openSettings':
@@ -76,7 +76,7 @@ async function handleSettingUpdate(
     switch (setting) {
         case 'enableAutoCommit':
             vscode.window.showInformationMessage(
-                newValue ? '✓ Auto-commit enabled' : '✗ Auto-commit disabled'
+                newValue ? ' Auto-commit enabled' : '✗ Auto-commit disabled'
             );
             break;
 
@@ -84,7 +84,7 @@ async function handleSettingUpdate(
             vscode.window.showInformationMessage(
                 newValue 
                     ? '⚠️ Auto-commit will now proceed without confirmation' 
-                    : '✓ Auto-commit will ask for confirmation'
+                    : ' Auto-commit will ask for confirmation'
             );
             break;
 
@@ -96,7 +96,7 @@ async function handleSettingUpdate(
 
         case 'enableReminder':
             vscode.window.showInformationMessage(
-                newValue ? '✓ Reminders enabled' : '✗ Reminders disabled'
+                newValue ? ' Reminders enabled' : '✗ Reminders disabled'
             );
             break;
 
@@ -117,7 +117,7 @@ async function handleSettingUpdate(
                         'OK'
                     );
                 } else {
-                    vscode.window.showInformationMessage('✓ AI generation enabled');
+                    vscode.window.showInformationMessage(' AI generation enabled');
                 }
             } else {
                 vscode.window.showInformationMessage('✗ AI generation disabled');
@@ -138,7 +138,7 @@ async function handleSettingUpdate(
 
         case 'aiApiKey':
             if (newValue && newValue.trim().length > 0) {
-                vscode.window.showInformationMessage('✓ API key updated');
+                vscode.window.showInformationMessage(' API key updated');
             }
             break;
 
@@ -193,7 +193,7 @@ index 0000000..9daeafb
 
             if (message && message.trim().length > 0) {
                 vscode.window.showInformationMessage(
-                    `✓ AI connection successful!\n\nProvider: ${aiProvider}\nModel: ${aiModel}\n\nTest message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`,
+                    ` AI connection successful!\n\nProvider: ${aiProvider}\nModel: ${aiModel}\n\nTest message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`,
                     'OK'
                 );
             } else {

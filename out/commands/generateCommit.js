@@ -72,7 +72,7 @@ class GenerateCommitCommand {
             if (silent && autoCommitEnabled) {
                 if (autoCommitWithoutConfirm) {
                     await this.commitChanges(context, commitMessage, files, workspaceFolder.uri.fsPath);
-                    vscode.window.showInformationMessage(`✓ Auto-committed: ${commitMessage.split('\n')[0]}`);
+                    vscode.window.showInformationMessage(` Auto-committed: ${commitMessage.split('\n')[0]}`);
                 }
                 else {
                     const action = await vscode.window.showInformationMessage(`Auto-commit ready: "${commitMessage.split('\n')[0]}"`, 'Commit Now', 'Skip');
@@ -108,7 +108,7 @@ class GenerateCommitCommand {
                 commitHistory = commitHistory.slice(0, 50);
             }
             await context.globalState.update('commitHistory', commitHistory);
-            vscode.window.showInformationMessage(`✓ Committed: ${message.split('\n')[0]}`);
+            vscode.window.showInformationMessage(` Committed: ${message.split('\n')[0]}`);
         }
         catch (error) {
             vscode.window.showErrorMessage(`Failed to commit: ${error}`);

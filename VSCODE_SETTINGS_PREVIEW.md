@@ -217,7 +217,7 @@ Alternatively, users can use the built-in command:
          › Yes
            No
    
-   ✓ AI configured: OpenAI (gpt-4o-mini)
+    AI configured: OpenAI (gpt-4o-mini)
    [Test It] [View Settings]
    ```
 

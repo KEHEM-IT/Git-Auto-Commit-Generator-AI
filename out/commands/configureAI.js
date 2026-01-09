@@ -68,7 +68,7 @@ class ConfigureAICommand {
         if (enable) {
             await config.update('useAIGeneration', enable.value, vscode.ConfigurationTarget.Global);
         }
-        vscode.window.showInformationMessage(`✓ AI configured: ${provider.label}${model ? ` (${model.label})` : ''}`, 'Test It', 'View Settings').then(action => {
+        vscode.window.showInformationMessage(` AI configured: ${provider.label}${model ? ` (${model.label})` : ''}`, 'Test It', 'View Settings').then(action => {
             if (action === 'Test It') {
                 vscode.commands.executeCommand('gitAutoCommit.generateCommit');
             }

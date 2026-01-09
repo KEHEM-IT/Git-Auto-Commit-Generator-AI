@@ -11,8 +11,8 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
-echo "✓ Node.js found: $(node --version)"
-echo "✓ NPM found: $(npm --version)"
+echo " Node.js found: $(node --version)"
+echo " NPM found: $(npm --version)"
 
 # Create directory structure
 echo ""
@@ -29,7 +29,7 @@ if [ -f "main.ts" ]; then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mv main.ts src/extension.ts
-        echo "✓ Moved main.ts to src/extension.ts"
+        echo " Moved main.ts to src/extension.ts"
     fi
 fi
 
@@ -65,7 +65,7 @@ if [ ! -f ".vscode/launch.json" ]; then
   ]
 }
 EOF
-    echo "✓ Created .vscode/launch.json"
+    echo " Created .vscode/launch.json"
 fi
 
 # Create .vscodeignore if it doesn't exist
@@ -85,7 +85,7 @@ vsc-extension-quickstart.md
 node_modules/**
 setup.sh
 EOF
-    echo "✓ Created .vscodeignore"
+    echo " Created .vscodeignore"
 fi
 
 # Create .gitignore if it doesn't exist
@@ -99,7 +99,7 @@ node_modules
 *.vsix
 .DS_Store
 EOF
-    echo "✓ Created .gitignore"
+    echo " Created .gitignore"
 fi
 
 # Compile TypeScript

@@ -33,7 +33,7 @@
 │  Git Auto Commit                     │
 │                                      │
 │  Mode: Auto-Commit Enabled           │
-│  AI Generation: Enabled ✓            │
+│  AI Generation: Enabled             │
 │  Uncommitted Changes: 5              │
 │  Last Commit: 2m ago                 │
 │                                      │

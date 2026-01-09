@@ -103,10 +103,10 @@ To verify everything is working:
 3. **Open Settings**: `Ctrl+,` in the Extension Development Host
 4. **Search**: "Git Auto Commit"
 5. **Verify**: 
-   - AI Provider shows as dropdown ✓
-   - AI Model shows as dropdown with 14 options ✓
-   - Each model has a description showing its provider ✓
-   - API Key is a password field ✓
+   - AI Provider shows as dropdown 
+   - AI Model shows as dropdown with 14 options 
+   - Each model has a description showing its provider 
+   - API Key is a password field 
 
 ## Summary
 
