@@ -71,7 +71,7 @@ If you don't want to reset everything:
 1. Open the welcome screen
 2. Click "Enable Auto-Commit" button
 3. **Expected**: 
-   - Shows success message: "✓ Auto-commit enabled!"
+   - Shows success message: "Auto-commit enabled!"
    - Welcome screen closes
    - Dashboard opens automatically after 500ms
 

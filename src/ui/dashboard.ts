@@ -3,7 +3,7 @@ import { CommitHistory } from '../types';
 import { PROVIDER_NAMES } from '../config/constants';
 
 export class DashboardUI {
-    static getDashboardHtml(commitHistory: CommitHistory[], extensionPath: string): string {
+    static getDashboardHtml(commitHistory: CommitHistory[], extensionPath: string, webview?: vscode.Webview): string {
         const config = vscode.workspace.getConfiguration('gitAutoCommit');
         const autoEnabled = config.get('enableAutoCommit', false);
         const autoWithoutConfirm = config.get('autoCommitWithoutConfirmation', false);
@@ -19,7 +19,8 @@ export class DashboardUI {
         const hasApiKey = !!(config.get(apiKeyField, '') as string);
 
         // Get logo URI for webview
-        const logoUri = vscode.Uri.file(extensionPath + '/images/icon.png');
+        const logoPath = vscode.Uri.file(extensionPath + '/images/icon.png');
+        const logoUri = webview ? webview.asWebviewUri(logoPath) : logoPath;
 
         // Calculate statistics
         const totalCommits = commitHistory.length;
@@ -36,83 +37,103 @@ export class DashboardUI {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Git Commit Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="bg-gray-900 text-gray-100 p-8">
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-gray-100 p-8">
     <div class="max-w-6xl mx-auto">
         <!-- Header with Logo -->
-        <div class="text-center mb-10 bg-gray-800 border border-gray-700 rounded-xl p-8">
-            <img src="${logoUri.toString()}" alt="Logo" class="w-20 h-20 mx-auto mb-4">
-            <h1 class="text-4xl font-bold mb-2">Git Commit Dashboard</h1>
-            <p class="text-gray-400">Track your commits and manage automation</p>
+        <div class="text-center mb-10 bg-gradient-to-br from-gray-800 to-purple-900 border border-purple-500 shadow-2xl shadow-purple-500/50 rounded-xl p-8">
+            <img src="${logoUri.toString()}" alt="Logo" class="w-20 h-20 mx-auto mb-4 animate-pulse">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <i class="fas fa-chart-line mr-3"></i>Git Commit Dashboard
+            </h1>
+            <p class="text-gray-300"><i class="fas fa-rocket mr-2"></i>Track your commits and manage automation</p>
         </div>
 
         <!-- Statistics -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center hover:transform hover:-translate-y-1 transition-transform">
-                <div class="text-4xl font-bold mb-2">${totalCommits}</div>
-                <div class="text-sm text-gray-400 uppercase tracking-wider">Total Commits</div>
+            <div class="bg-gradient-to-br from-blue-900 to-blue-700 border border-blue-500 rounded-xl p-6 text-center hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/50 transition-all">
+                <div class="text-5xl mb-3"><i class="fas fa-code-commit text-blue-300"></i></div>
+                <div class="text-4xl font-bold mb-2 text-blue-100">${totalCommits}</div>
+                <div class="text-sm text-blue-200 uppercase tracking-wider font-semibold">Total Commits</div>
             </div>
-            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center hover:transform hover:-translate-y-1 transition-transform">
-                <div class="text-4xl font-bold mb-2">${todayCommits}</div>
-                <div class="text-sm text-gray-400 uppercase tracking-wider">Today's Commits</div>
+            <div class="bg-gradient-to-br from-green-900 to-green-700 border border-green-500 rounded-xl p-6 text-center hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/50 transition-all">
+                <div class="text-5xl mb-3"><i class="fas fa-calendar-day text-green-300"></i></div>
+                <div class="text-4xl font-bold mb-2 text-green-100">${todayCommits}</div>
+                <div class="text-sm text-green-200 uppercase tracking-wider font-semibold">Today's Commits</div>
             </div>
-            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center hover:transform hover:-translate-y-1 transition-transform">
-                <div class="text-4xl font-bold mb-2">${filesChanged}</div>
-                <div class="text-sm text-gray-400 uppercase tracking-wider">Files Changed</div>
+            <div class="bg-gradient-to-br from-purple-900 to-purple-700 border border-purple-500 rounded-xl p-6 text-center hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
+                <div class="text-5xl mb-3"><i class="fas fa-file-code text-purple-300"></i></div>
+                <div class="text-4xl font-bold mb-2 text-purple-100">${filesChanged}</div>
+                <div class="text-sm text-purple-200 uppercase tracking-wider font-semibold">Files Changed</div>
             </div>
         </div>
 
         <!-- Settings Panel -->
-        <div class="bg-gray-800 border border-gray-700 rounded-xl p-8 mb-8">
-            <h2 class="text-2xl font-bold mb-6">Current Configuration</h2>
+        <div class="bg-gradient-to-br from-gray-800 to-purple-900 border border-purple-500 shadow-xl rounded-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-cog text-purple-400 mr-3"></i>Current Configuration
+            </h2>
             
             <div class="space-y-4">
-                <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                    <div class="font-medium">Auto Commit</div>
+                <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30 hover:border-opacity-60 transition-all">
+                    <div class="font-medium flex items-center">
+                        <i class="fas fa-robot text-purple-400 mr-3"></i>Auto Commit
+                    </div>
                     <div class="flex items-center gap-3">
-                        <span class="px-4 py-1 rounded-full text-sm font-semibold ${autoEnabled ? 'bg-green-500 text-black' : 'bg-red-500 text-black'}">
+                        <span class="px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${autoEnabled ? 'bg-green-500 text-black' : 'bg-red-500 text-black'}">
+                            <i class="fas ${autoEnabled ? 'fa-check-circle' : 'fa-times-circle'}"></i>
                             ${autoEnabled ? 'ENABLED' : 'DISABLED'}
                         </span>
-                        <button onclick="toggleAutoCommit()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                            ${autoEnabled ? 'Disable' : 'Enable'}
+                        <button onclick="toggleAutoCommit()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            <i class="fas ${autoEnabled ? 'fa-pause' : 'fa-play'} mr-2"></i>${autoEnabled ? 'Disable' : 'Enable'}
                         </button>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                    <div class="font-medium">Commit Interval</div>
-                    <select onchange="updateInterval(this.value)" class="px-4 py-2 bg-gray-600 border border-gray-500 rounded-lg">
+                <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30 hover:border-opacity-60 transition-all">
+                    <div class="font-medium flex items-center">
+                        <i class="fas fa-clock text-blue-400 mr-3"></i>Commit Interval
+                    </div>
+                    <select onchange="updateInterval(this.value)" class="px-4 py-2 bg-gray-600 border border-gray-500 rounded-lg hover:border-purple-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 transition-all">
                         ${[1, 5, 10, 15, 30, 60].map(v => 
                             `<option value="${v}" ${interval === v ? 'selected' : ''}>${v} min</option>`
                         ).join('')}
                     </select>
                 </div>
 
-                <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                    <div class="font-medium">Auto-Commit Without Confirmation</div>
+                <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30 hover:border-opacity-60 transition-all">
+                    <div class="font-medium flex items-center">
+                        <i class="fas fa-bolt text-yellow-400 mr-3"></i>Auto-Commit Without Confirmation
+                    </div>
                     <div class="flex items-center gap-3">
-                        <span class="px-4 py-1 rounded-full text-sm font-semibold ${autoWithoutConfirm ? 'bg-yellow-500 text-black' : 'bg-blue-500 text-white'}">
+                        <span class="px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${autoWithoutConfirm ? 'bg-yellow-500 text-black' : 'bg-blue-500 text-white'}">
+                            <i class="fas ${autoWithoutConfirm ? 'fa-bolt' : 'fa-hand-paper'}"></i>
                             ${autoWithoutConfirm ? 'YES' : 'NO'}
                         </span>
-                        <button onclick="toggleConfirmation()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                            ${autoWithoutConfirm ? 'Require Confirmation' : 'Skip Confirmation'}
+                        <button onclick="toggleConfirmation()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            <i class="fas ${autoWithoutConfirm ? 'fa-check' : 'fa-times'} mr-2"></i>${autoWithoutConfirm ? 'Require' : 'Skip'} Confirmation
                         </button>
                     </div>
                 </div>
 
                 ${autoWithoutConfirm ? `
-                    <div class="flex items-center gap-3 p-4 bg-yellow-900 bg-opacity-20 border-2 border-yellow-500 rounded-lg">
-                        <span class="text-yellow-500">⚠️ Commits will be made automatically without asking for confirmation!</span>
+                    <div class="flex items-center gap-3 p-4 bg-yellow-900 bg-opacity-30 border-2 border-yellow-500 rounded-lg backdrop-blur-sm animate-pulse">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 text-2xl"></i>
+                        <span class="text-yellow-300 font-semibold">Commits will be made automatically without asking for confirmation!</span>
                     </div>
                 ` : ''}
 
-                <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                    <div class="font-medium">Commit Reminder</div>
+                <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30 hover:border-opacity-60 transition-all">
+                    <div class="font-medium flex items-center">
+                        <i class="fas fa-bell text-orange-400 mr-3"></i>Commit Reminder
+                    </div>
                     <div class="flex items-center gap-3">
-                        <span class="px-4 py-1 rounded-full text-sm font-semibold ${reminderEnabled ? 'bg-green-500 text-black' : 'bg-red-500 text-black'}">
+                        <span class="px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${reminderEnabled ? 'bg-green-500 text-black' : 'bg-red-500 text-black'}">
+                            <i class="fas ${reminderEnabled ? 'fa-bell' : 'fa-bell-slash'}"></i>
                             ${reminderEnabled ? 'ENABLED' : 'DISABLED'}
                         </span>
-                        <select onchange="updateReminderInterval(this.value)" class="px-4 py-2 bg-gray-600 border border-gray-500 rounded-lg">
+                        <select onchange="updateReminderInterval(this.value)" class="px-4 py-2 bg-gray-600 border border-gray-500 rounded-lg hover:border-purple-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 transition-all">
                             ${[1, 5, 10, 15, 30].map(v => 
                                 `<option value="${v}" ${reminderInterval === v ? 'selected' : ''}>${v} min</option>`
                             ).join('')}
@@ -120,38 +141,51 @@ export class DashboardUI {
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                    <div class="font-medium">AI Generation</div>
+                <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30 hover:border-opacity-60 transition-all">
+                    <div class="font-medium flex items-center">
+                        <i class="fas fa-brain text-pink-400 mr-3"></i>AI Generation
+                    </div>
                     <div class="flex items-center gap-3">
-                        <span class="px-4 py-1 rounded-full text-sm font-semibold ${useAI ? 'bg-green-500 text-black' : 'bg-red-500 text-black'}">
+                        <span class="px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${useAI ? 'bg-green-500 text-black' : 'bg-red-500 text-black'}">
+                            <i class="fas ${useAI ? 'fa-check-circle' : 'fa-times-circle'}"></i>
                             ${useAI ? 'ENABLED' : 'DISABLED'}
                         </span>
-                        <button onclick="configureAI()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                            ${useAI ? 'Reconfigure' : 'Enable'} AI
+                        <button onclick="configureAI()" class="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            <i class="fas ${useAI ? 'fa-cog' : 'fa-power-off'} mr-2"></i>${useAI ? 'Reconfigure' : 'Enable'} AI
                         </button>
                     </div>
                 </div>
 
                 ${useAI ? `
-                    <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                        <div class="font-medium">AI Provider</div>
+                    <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30">
+                        <div class="font-medium flex items-center">
+                            <i class="fas fa-server text-blue-400 mr-3"></i>AI Provider
+                        </div>
                         <div class="flex items-center gap-3">
-                            <span class="px-4 py-1 rounded-full text-sm font-semibold bg-blue-500 text-white">${PROVIDER_NAMES[aiProvider] || aiProvider}</span>
+                            <span class="px-4 py-1 rounded-full text-sm font-semibold bg-blue-500 text-white flex items-center gap-2">
+                                <i class="fas fa-microchip"></i>${PROVIDER_NAMES[aiProvider] || aiProvider}
+                            </span>
                             ${hasApiKey ? 
-                                '<span class="text-green-500">✓ API Key Configured</span>' : 
-                                '<span class="px-4 py-1 rounded-full text-sm font-semibold bg-yellow-500 text-black">⚠️ No API Key</span>'
+                                '<span class="text-green-400 flex items-center gap-2"><i class="fas fa-check-circle"></i>API Key Configured</span>' : 
+                                '<span class="px-4 py-1 rounded-full text-sm font-semibold bg-yellow-500 text-black flex items-center gap-2"><i class="fas fa-exclamation-triangle"></i>No API Key</span>'
                             }
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                        <div class="font-medium">AI Model</div>
-                        <span class="text-gray-400">${aiModel || 'Default'}</span>
+                    <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30">
+                        <div class="font-medium flex items-center">
+                            <i class="fas fa-microchip text-green-400 mr-3"></i>AI Model
+                        </div>
+                        <span class="text-gray-300 flex items-center gap-2">
+                            <i class="fas fa-robot"></i>${aiModel || 'Default'}
+                        </span>
                     </div>
 
-                    <div class="flex justify-between items-center p-4 bg-gray-700 rounded-lg">
-                        <div class="font-medium">Commit Message Style</div>
-                        <select onchange="updateCommitStyle(this.value)" class="px-4 py-2 bg-gray-600 border border-gray-500 rounded-lg">
+                    <div class="flex justify-between items-center p-4 bg-gray-700 bg-opacity-50 backdrop-blur-sm rounded-lg border border-purple-500 border-opacity-30">
+                        <div class="font-medium flex items-center">
+                            <i class="fas fa-code text-purple-400 mr-3"></i>Commit Message Style
+                        </div>
+                        <select onchange="updateCommitStyle(this.value)" class="px-4 py-2 bg-gray-600 border border-gray-500 rounded-lg hover:border-purple-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 transition-all">
                             <option value="conventional" ${commitStyle === 'conventional' ? 'selected' : ''}>Conventional (feat:, fix:)</option>
                             <option value="simple" ${commitStyle === 'simple' ? 'selected' : ''}>Simple</option>
                             <option value="detailed" ${commitStyle === 'detailed' ? 'selected' : ''}>Detailed</option>
@@ -161,47 +195,59 @@ export class DashboardUI {
             </div>
 
             <div class="flex flex-wrap gap-4 mt-6">
-                <button onclick="refresh()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                    Refresh Dashboard
+                <button onclick="refresh()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
+                    <i class="fas fa-sync-alt mr-2"></i>Refresh Dashboard
                 </button>
-                <button onclick="generateCommit()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                    Generate Commit
+                <button onclick="generateCommit()" class="px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
+                    <i class="fas fa-plus-circle mr-2"></i>Generate Commit
                 </button>
-                <button onclick="openSettings()" class="px-6 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors">
-                    Advanced Settings
+                <button onclick="openSettings()" class="px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
+                    <i class="fas fa-cog mr-2"></i>Advanced Settings
                 </button>
-                <button onclick="clearHistory()" class="px-6 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors">
-                    Clear History
+                <button onclick="clearHistory()" class="px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold">
+                    <i class="fas fa-trash-alt mr-2"></i>Clear History
                 </button>
             </div>
         </div>
 
         <!-- Commits Section -->
-        <div class="bg-gray-800 border border-gray-700 rounded-xl p-8">
-            <h2 class="text-2xl font-bold mb-6">Recent Commits (${totalCommits})</h2>
+        <div class="bg-gradient-to-br from-gray-800 to-purple-900 border border-purple-500 shadow-xl rounded-xl p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-history text-blue-400 mr-3"></i>Recent Commits (${totalCommits})
+            </h2>
             
             ${totalCommits === 0 ? `
                 <div class="text-center py-16">
+                    <i class="fas fa-inbox text-6xl text-gray-600 mb-6"></i>
                     <h3 class="text-2xl font-bold mb-3">No commits yet</h3>
                     <p class="text-gray-400 mb-6">Start committing to see your history here!</p>
-                    <button onclick="generateCommit()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                        Make Your First Commit
+                    <button onclick="generateCommit()" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 font-semibold">
+                        <i class="fas fa-rocket mr-2"></i>Make Your First Commit
                     </button>
                 </div>
             ` : commitHistory.map(commit => `
-                <div class="bg-gray-700 border-l-4 border-blue-500 rounded-lg p-5 mb-4 hover:bg-gray-600 transition-colors">
+                <div class="bg-gradient-to-r from-gray-700 to-gray-800 border-l-4 border-purple-500 rounded-lg p-5 mb-4 hover:from-gray-600 hover:to-gray-700 hover:shadow-xl transition-all">
                     <div class="flex justify-between items-center mb-3">
-                        <span class="font-mono text-sm bg-gray-800 text-yellow-300 px-3 py-1 rounded border border-gray-600">
-                            # ${commit.hash || 'N/A'}
+                        <span class="font-mono text-sm bg-gray-900 text-yellow-300 px-3 py-1 rounded border border-yellow-500 flex items-center gap-2">
+                            <i class="fas fa-hashtag"></i>${commit.hash || 'N/A'}
                         </span>
-                        <span class="text-sm text-gray-400">${this.formatTime(commit.timestamp)}</span>
+                        <span class="text-sm text-gray-400 flex items-center gap-2">
+                            <i class="far fa-clock"></i>${this.formatTime(commit.timestamp)}
+                        </span>
                     </div>
-                    <div class="text-lg font-semibold mb-2">${this.escapeHtml(commit.message.split('\n')[0])}</div>
+                    <div class="text-lg font-semibold mb-2 flex items-center gap-2">
+                        <i class="fas fa-comment-dots text-blue-400"></i>
+                        ${this.escapeHtml(commit.message.split('\n')[0])}
+                    </div>
                     <div class="flex items-center gap-2 text-sm">
-                        <span class="bg-gray-600 text-white px-3 py-1 rounded-full">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full flex items-center gap-2">
+                            <i class="fas fa-file-code"></i>
                             ${commit.files.length} file${commit.files.length !== 1 ? 's' : ''}
                         </span>
-                        <span class="text-gray-400">${commit.files.slice(0, 2).join(', ')}${commit.files.length > 2 ? ` +${commit.files.length - 2} more` : ''}</span>
+                        <span class="text-gray-400 flex items-center gap-2">
+                            <i class="fas fa-folder"></i>
+                            ${commit.files.slice(0, 2).join(', ')}${commit.files.length > 2 ? ` +${commit.files.length - 2} more` : ''}
+                        </span>
                     </div>
                 </div>
             `).join('')}

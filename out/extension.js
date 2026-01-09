@@ -93,7 +93,7 @@ function toggleAutoCommit(context) {
     const config = vscode.workspace.getConfiguration('gitAutoCommit');
     const current = config.get('enableAutoCommit', false);
     config.update('enableAutoCommit', !current, vscode.ConfigurationTarget.Global);
-    const message = !current ? '✓ Auto-commit enabled' : '✗ Auto-commit disabled';
+    const message = !current ? 'Auto-commit enabled' : '✗ Auto-commit disabled';
     vscode.window.showInformationMessage(message);
 }
 function deactivate() {
