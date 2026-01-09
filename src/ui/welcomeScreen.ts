@@ -4,14 +4,15 @@ export class WelcomeScreen {
     static async show(context: vscode.ExtensionContext, forceShow: boolean = false): Promise<void> {
         const hasShownWelcome = context.globalState.get('hasShownWelcome', false);
         
-        // Open dashboard on first install
-        if (!hasShownWelcome && !forceShow) {
-            setTimeout(() => {
-                vscode.commands.executeCommand('gitAutoCommit.showDashboard');
-            }, 1000);
+        // Skip if already shown and not forced
+        if (hasShownWelcome && !forceShow) {
+            return;
         }
         
-        if (hasShownWelcome && !forceShow) return;
+        // Mark as shown before opening to prevent duplicate calls
+        if (!forceShow) {
+            await context.globalState.update('hasShownWelcome', true);
+        }
 
         const panel = vscode.window.createWebviewPanel(
             'gitAutoCommitWelcome',
@@ -33,28 +34,27 @@ export class WelcomeScreen {
                         await config.update('enableAutoCommit', true, vscode.ConfigurationTarget.Global);
                         vscode.window.showInformationMessage('✓ Auto-commit enabled!');
                         panel.dispose();
+                        // Open dashboard after enabling
+                        setTimeout(() => {
+                            vscode.commands.executeCommand('gitAutoCommit.showDashboard');
+                        }, 500);
                         break;
                     case 'configureAI':
                         panel.dispose();
                         vscode.commands.executeCommand('gitAutoCommit.configureAI');
                         break;
                     case 'openSettings':
-                        vscode.commands.executeCommand('workbench.action.openSettings', 'gitAutoCommit');
+                        vscode.commands.executeCommand('workbench.action.openSettings', '@ext:KEHEM-IT.git-auto-commit');
                         break;
                     case 'close':
                         panel.dispose();
                         break;
                     case 'dontShowAgain':
-                        await context.globalState.update('hasShownWelcome', true);
                         panel.dispose();
                         break;
                 }
             }
         );
-
-        if (!hasShownWelcome && !forceShow) {
-            await context.globalState.update('hasShownWelcome', true);
-        }
     }
 
     private static getWelcomeHtml(): string {
@@ -73,12 +73,21 @@ export class WelcomeScreen {
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             overflow-x: hidden;
             padding: 20px;
             min-height: 100vh;
+        }
+        
+        /* VS Code Dark Theme Support */
+        body.vscode-dark {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+        
+        body.vscode-light {
+            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
         }
 
         .container {

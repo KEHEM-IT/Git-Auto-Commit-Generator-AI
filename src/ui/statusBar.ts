@@ -165,7 +165,7 @@ export class StatusBarManager {
                 vscode.commands.executeCommand('gitAutoCommit.showDashboard');
                 break;
             case '$(gear) Settings':
-                vscode.commands.executeCommand('workbench.action.openSettings', 'gitAutoCommit');
+                vscode.commands.executeCommand('workbench.action.openSettings', '@ext:KEHEM-IT.git-auto-commit');
                 break;
             case '$(info) About':
                 vscode.commands.executeCommand('gitAutoCommit.showWelcome');

@@ -16,8 +16,10 @@ export function activate(context: vscode.ExtensionContext) {
     statusBarManager = new StatusBarManager(context);
     timerManager = new TimerManager();
  
-    // Show welcome screen on first install
-    WelcomeScreen.show(context, false);
+    // Show welcome screen on first install (with a small delay to ensure proper activation)
+    setTimeout(() => {
+        WelcomeScreen.show(context, false);
+    }, 500);
 
     // Update status bar
     statusBarManager.update();

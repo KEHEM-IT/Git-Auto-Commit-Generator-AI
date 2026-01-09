@@ -38,8 +38,10 @@ function activate(context) {
     // Initialize managers
     statusBarManager = new statusBar_1.StatusBarManager(context);
     timerManager = new timerManager_1.TimerManager();
-    // Show welcome screen on first install
-    welcomeScreen_1.WelcomeScreen.show(context, false);
+    // Show welcome screen on first install (with a small delay to ensure proper activation)
+    setTimeout(() => {
+        welcomeScreen_1.WelcomeScreen.show(context, false);
+    }, 500);
     // Update status bar
     statusBarManager.update();
     context.subscriptions.push(statusBarManager.getStatusBarItem());

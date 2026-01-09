@@ -64,8 +64,8 @@ class DashboardUI {
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
+            background-color: var(--vscode-editor-background, #1e1e1e);
+            color: var(--vscode-editor-foreground, #d4d4d4);
             padding: 30px;
             min-height: 100vh;
         }
@@ -85,6 +85,10 @@ class DashboardUI {
             text-align: center;
             margin-bottom: 40px;
             animation: slideDown 0.6s ease-out;
+            padding: 30px;
+            background-color: var(--vscode-editor-background, #252526);
+            border: 1px solid var(--vscode-panel-border, #3e3e42);
+            border-radius: 12px;
         }
 
         @keyframes slideDown {
@@ -96,7 +100,7 @@ class DashboardUI {
             font-size: 42px;
             font-weight: 700;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         .header .icon-large {
@@ -104,8 +108,7 @@ class DashboardUI {
             margin-bottom: 15px;
             display: inline-block;
             animation: bounce 2s infinite;
-            color: #fbbf24;
-            text-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         @keyframes bounce {
@@ -121,10 +124,9 @@ class DashboardUI {
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            background-color: var(--vscode-editor-background, #252526);
+            border: 1px solid var(--vscode-panel-border, #3e3e42);
+            border-radius: 12px;
             padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
@@ -137,35 +139,35 @@ class DashboardUI {
 
         .stat-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: var(--vscode-textLink-foreground, #3794ff);
+            box-shadow: 0 4px 12px rgba(55, 148, 255, 0.2);
         }
 
         .stat-card .icon {
             font-size: 40px;
             margin-bottom: 10px;
-            color: #fbbf24;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         .stat-card .number {
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 5px;
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         .stat-card .label {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.7;
             text-transform: uppercase;
             letter-spacing: 1px;
+            color: var(--vscode-descriptionForeground, #cccccc);
         }
 
         .settings-panel {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
+            background-color: var(--vscode-editor-background, #252526);
+            border: 1px solid var(--vscode-panel-border, #3e3e42);
+            border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
         }
@@ -176,10 +178,11 @@ class DashboardUI {
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         .settings-panel h2 i {
-            color: #fbbf24;
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         .setting-row {
@@ -188,18 +191,21 @@ class DashboardUI {
             align-items: center;
             padding: 15px;
             margin: 10px 0;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: background 0.3s ease;
+            background-color: var(--vscode-input-background, #3c3c3c);
+            border: 1px solid var(--vscode-input-border, #3e3e42);
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .setting-row:hover {
-            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--vscode-focusBorder, #007acc);
+            background-color: var(--vscode-list-hoverBackground, #2a2d2e);
         }
 
         .setting-label {
             font-size: 16px;
             font-weight: 500;
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         .setting-value {
@@ -218,47 +224,50 @@ class DashboardUI {
         }
 
         .badge.success {
-            background: #4caf50;
-            color: white;
+            background-color: var(--vscode-testing-iconPassed, #73c991);
+            color: var(--vscode-editor-background, #1e1e1e);
         }
 
         .badge.danger {
-            background: #f44336;
-            color: white;
+            background-color: var(--vscode-testing-iconFailed, #f48771);
+            color: var(--vscode-editor-background, #1e1e1e);
         }
 
         .badge.warning {
-            background: #ff9800;
-            color: white;
+            background-color: var(--vscode-editorWarning-foreground, #cca700);
+            color: var(--vscode-editor-background, #1e1e1e);
         }
 
         .badge.info {
-            background: #2196f3;
-            color: white;
+            background-color: var(--vscode-textLink-foreground, #3794ff);
+            color: var(--vscode-editor-background, #1e1e1e);
         }
 
         .btn {
             padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
+            border: 1px solid var(--vscode-button-border, #3e3e42);
+            border-radius: 6px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background-color: var(--vscode-button-secondaryBackground, #3a3d41);
+            color: var(--vscode-button-secondaryForeground, #cccccc);
         }
 
         .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: var(--vscode-button-secondaryHoverBackground, #45494e);
+            border-color: var(--vscode-focusBorder, #007acc);
         }
 
         .btn.primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
+            background-color: var(--vscode-button-background, #0e639c);
+            color: var(--vscode-button-foreground, #ffffff);
+            border-color: transparent;
+        }
+
+        .btn.primary:hover {
+            background-color: var(--vscode-button-hoverBackground, #1177bb);
         }
 
         .btn i {
@@ -273,10 +282,9 @@ class DashboardUI {
         }
 
         .commits-section {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
+            background-color: var(--vscode-editor-background, #252526);
+            border: 1px solid var(--vscode-panel-border, #3e3e42);
+            border-radius: 12px;
             padding: 30px;
         }
 
@@ -286,16 +294,17 @@ class DashboardUI {
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         .commits-section h2 i {
-            color: #fbbf24;
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         .commit-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #667eea;
-            border-radius: 10px;
+            background-color: var(--vscode-input-background, #3c3c3c);
+            border-left: 4px solid var(--vscode-textLink-foreground, #3794ff);
+            border-radius: 8px;
             padding: 20px;
             margin: 15px 0;
             transition: all 0.3s ease;
@@ -303,9 +312,9 @@ class DashboardUI {
         }
 
         .commit-card:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background-color: var(--vscode-list-hoverBackground, #2a2d2e);
             transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(55, 148, 255, 0.15);
         }
 
         @keyframes slideIn {
@@ -329,19 +338,22 @@ class DashboardUI {
         .commit-hash {
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            background: rgba(255, 255, 255, 0.2);
+            background-color: var(--vscode-editor-background, #1e1e1e);
+            color: var(--vscode-textPreformat-foreground, #d7ba7d);
             padding: 4px 10px;
             border-radius: 5px;
+            border: 1px solid var(--vscode-panel-border, #3e3e42);
         }
 
         .commit-hash i {
             margin-right: 5px;
-            color: #fbbf24;
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         .commit-time {
             font-size: 13px;
-            opacity: 0.8;
+            opacity: 0.7;
+            color: var(--vscode-descriptionForeground, #cccccc);
         }
 
         .commit-time i {
@@ -353,23 +365,26 @@ class DashboardUI {
             font-weight: 600;
             margin-bottom: 10px;
             line-height: 1.5;
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         .commit-message i {
             margin-right: 8px;
-            color: #fbbf24;
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         .commit-files {
             font-size: 13px;
-            opacity: 0.9;
+            opacity: 0.8;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--vscode-descriptionForeground, #cccccc);
         }
 
         .file-badge {
-            background: rgba(255, 255, 255, 0.2);
+            background-color: var(--vscode-badge-background, #4d4d4d);
+            color: var(--vscode-badge-foreground, #ffffff);
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 12px;
@@ -382,25 +397,29 @@ class DashboardUI {
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         .empty-state .icon {
             font-size: 80px;
             margin-bottom: 20px;
-            color: #fbbf24;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            color: var(--vscode-textLink-foreground, #3794ff);
         }
 
         .empty-state h3 {
             font-size: 24px;
             margin-bottom: 10px;
+            color: var(--vscode-editor-foreground, #d4d4d4);
+        }
+
+        .empty-state p {
+            color: var(--vscode-descriptionForeground, #cccccc);
         }
 
         .warning-box {
-            background: rgba(255, 152, 0, 0.2);
-            border: 2px solid #ff9800;
-            border-radius: 10px;
+            background-color: rgba(204, 167, 0, 0.15);
+            border: 2px solid var(--vscode-editorWarning-foreground, #cca700);
+            border-radius: 8px;
             padding: 15px;
             margin: 15px 0;
             display: flex;
@@ -410,14 +429,18 @@ class DashboardUI {
 
         .warning-box .icon {
             font-size: 24px;
-            color: #ff9800;
+            color: var(--vscode-editorWarning-foreground, #cca700);
+        }
+
+        .warning-box span {
+            color: var(--vscode-editor-foreground, #d4d4d4);
         }
 
         select {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
+            background-color: var(--vscode-dropdown-background, #3c3c3c);
+            color: var(--vscode-dropdown-foreground, #cccccc);
+            border: 1px solid var(--vscode-dropdown-border, #3e3e42);
+            border-radius: 6px;
             padding: 8px 12px;
             font-size: 14px;
             cursor: pointer;
@@ -426,12 +449,16 @@ class DashboardUI {
         }
 
         select:hover {
-            background: rgba(255, 255, 255, 0.3);
+            border-color: var(--vscode-focusBorder, #007acc);
+        }
+
+        select:focus {
+            border-color: var(--vscode-focusBorder, #007acc);
         }
 
         select option {
-            background: #667eea;
-            color: white;
+            background-color: var(--vscode-dropdown-background, #3c3c3c);
+            color: var(--vscode-dropdown-foreground, #cccccc);
         }
 
         @media (max-width: 768px) {
@@ -448,7 +475,7 @@ class DashboardUI {
         <div class="header">
             <div class="icon-large"><i class="fas fa-chart-line"></i></div>
             <h1>Git Commit Dashboard</h1>
-            <p style="opacity: 0.9; font-size: 18px;">Track your commits and manage automation</p>
+            <p style="opacity: 0.7; font-size: 18px;">Track your commits and manage automation</p>
         </div>
 
         <!-- Statistics -->
@@ -544,7 +571,7 @@ class DashboardUI {
                     <div class="setting-value">
                         <span class="badge info">${constants_1.PROVIDER_NAMES[aiProvider] || aiProvider}</span>
                         ${hasApiKey ?
-            '<span style="opacity: 0.9;"><i class="fas fa-check-circle"></i> API Key Configured</span>' :
+            '<span style="opacity: 0.7;"><i class="fas fa-check-circle"></i> API Key Configured</span>' :
             '<span class="badge warning"><i class="fas fa-exclamation-triangle"></i> No API Key</span>'}
                     </div>
                 </div>
@@ -552,7 +579,7 @@ class DashboardUI {
                 <div class="setting-row">
                     <div class="setting-label">AI Model</div>
                     <div class="setting-value">
-                        <span style="opacity: 0.9;">${aiModel || 'Default'}</span>
+                        <span style="opacity: 0.7;">${aiModel || 'Default'}</span>
                     </div>
                 </div>
 
