@@ -47,7 +47,11 @@ Never write commit messages manually again! Git Auto Commit Generator analyzes y
 ![Generate Commit Message](https://raw.githubusercontent.com/KEHEM-IT/Git-Auto-Committer---Generative-AI/refs/heads/main/assets/Detailed_Generate_Messages.gif)
 
 ### Dashboard Overview
-![Commit Dashboard](https://raw.githubusercontent.com/yourusername/git-auto-commit/main/demo-dashboard.webp)
+#### Main Dashboard - 1
+![Main Dashboard](https://raw.githubusercontent.com/KEHEM-IT/Git-Auto-Committer---Generative-AI/refs/heads/main/assets/Dashboard.png)
+
+#### Main Dashboard - 2
+![Main Dashboard](https://raw.githubusercontent.com/KEHEM-IT/Git-Auto-Committer---Generative-AI/refs/heads/main/assets/Dashboard2.jpg)
 
 ## 🚀 Quick Start
 
